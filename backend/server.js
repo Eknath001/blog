@@ -152,11 +152,7 @@ app.post("/api/v1/contact", async (req, res) => {
 // ✅ Serve Frontend (Vite Build Output) — Enable in Production
 // Uncomment these lines when deploying
 
- app.use(express.static(path.join(__dirname, "frontend", "dist")));
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-// });
-
+app.use(express.static(path.join(_dirname,"/frontend/dist")));
 // ✅ Start Server
 server.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
