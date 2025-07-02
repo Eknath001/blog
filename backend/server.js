@@ -78,8 +78,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ✅ Fix __dirname for ES Modules
-//const __filename = fileURLToPath(import.meta.url);
-//const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const _dirname = path.resolve()
 
 // ✅ HTTP Server + Socket.IO Init
