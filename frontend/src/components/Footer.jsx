@@ -25,12 +25,12 @@ const Footer = () => {
         <div className="mb-8 md:mb-0 max-w-sm animate-fade-in-up">
           <Link to="/" className="flex gap-3 items-center group">
             <img src={Logo} alt="Blog App Logo" className="invert w-12 h-12 transition-transform duration-300 group-hover:scale-110" />
-            <h1 className="text-3xl font-bold text-white transition-colors duration-300 group-hover:text-red-400">yourLogo</h1>
+            <h1 className="text-3xl font-bold text-white transition-colors duration-300 group-hover:text-red-400">The Syntax</h1>
           </Link>
           <p className="mt-4 text-base leading-relaxed">
             Sharing insights, cutting-edge tutorials, and innovative ideas on web development, tech trends, and digital creativity.
           </p>
-          <p className="mt-3 text-sm">yourBlog Pune,Maharashtra City, NY 10001</p>
+          <p className="mt-3 text-sm">The Syntax Pune,Maharashtra City, NY 10001</p>
           <p className="text-sm">Email: <a href="mailto:supportteam@blog.com" className="hover:underline text-red-400">supportteam@blog.com</a></p>
           <p className="text-sm">Phone: <a href="tel:+11234567890" className="hover:underline text-red-400">(123) 456-7890</a></p>
         </div>
