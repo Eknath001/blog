@@ -85,7 +85,7 @@ const __dirname = path.dirname(__filename);
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://blog-pa1s.onrender.com",
+    origin: "http://localhost:5173",
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -126,7 +126,7 @@ app.use(express.urlencoded({ extended: true, limit: "20mb" }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://blog-pa1s.onrender.com",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );

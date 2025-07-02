@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
 // Create one global socket instance
-export const socket = io("https://blog-pa1s.onrender.com", {
+export const socket = io("http://localhost:8000", {
   withCredentials: true,
 });
 
