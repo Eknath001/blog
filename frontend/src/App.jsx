@@ -12,6 +12,7 @@ import YourBlog from './pages/YourBlog'
 import BlogView from './pages/BlogView'
 import Footer from './components/Footer'
 import About from './pages/About'
+import Contact from './pages/Contact'
 import Comments from './pages/Comments'
 import UpdateBlog from './pages/UpdateBlog'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/about",
     element: <><Navbar/><About /><Footer/></>
+  },
+    {
+    path: "/contact",
+    element: <><Navbar/><Contact /><Footer/></>
   },
   {
     path: "/search",
