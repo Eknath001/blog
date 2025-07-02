@@ -19,7 +19,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa6'
 import { setBlog } from '@/redux/blogSlice'
 import { toast } from 'sonner'
 import { formatDistanceToNow } from 'date-fns'
-
+//
 const BlogView = () => {
     const params = useParams()
     const blogId = params.blogId
