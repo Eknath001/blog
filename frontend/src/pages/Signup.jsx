@@ -170,13 +170,13 @@ import { toast } from 'sonner'
 import auth from "../assets/auth.jpg"
 import { GoogleLogin } from '@react-oauth/google'
 import { useDispatch } from 'react-redux'
-import { setUser } from '@/redux/authSlice'
+import { setUser } from '../redux/authSlice' // ✅ fix this path if alias fails
 
 const Signup = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const [user, setUser] = useState({
+  const [user, setUserState] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -187,13 +187,13 @@ const Signup = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUser((prev) => ({ ...prev, [name]: value }));
+    setUserState((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post(`https://blog-yt-rqdo.onrender.com/api/v1/user/register`, user, {
+      const response = await axios.post(`http://localhost:4000/api/v1/user/register`, user, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       })
@@ -211,7 +211,7 @@ const Signup = () => {
 
   const handleGoogleSignup = async (credentialResponse) => {
     try {
-      const response = await axios.post(`https://blog-yt-rqdo.onrender.com/api/v1/user/google`, {
+      const response = await axios.post(`http://localhost:4000/api/v1/user/google`, {
         credential: credentialResponse.credential,
       }, {
         headers: { "Content-Type": "application/json" },
@@ -219,7 +219,7 @@ const Signup = () => {
       });
 
       if (response.data.success) {
-        dispatch(setUser(response.data.user));
+        dispatch(setUser(response.data.user)); // ✅ works now
         toast.success("Google signup successful");
         navigate("/");
       } else {
@@ -247,32 +247,32 @@ const Signup = () => {
               <div className='flex gap-3'>
                 <div>
                   <Label>First Name</Label>
-                  <Input type="text" placeholder="First Name" name="firstName" value={user.firstName} onChange={handleChange} className="dark:border-gray-600 dark:bg-gray-900" />
+                  <Input type="text" name="firstName" value={user.firstName} onChange={handleChange} />
                 </div>
                 <div>
                   <Label>Last Name</Label>
-                  <Input type="text" placeholder="Last Name" name="lastName" value={user.lastName} onChange={handleChange} className="dark:border-gray-600 dark:bg-gray-900" />
+                  <Input type="text" name="lastName" value={user.lastName} onChange={handleChange} />
                 </div>
               </div>
               <div>
                 <Label>Email</Label>
-                <Input type="email" placeholder="john.doe@example.com" name="email" value={user.email} onChange={handleChange} className="dark:border-gray-600 dark:bg-gray-900" />
+                <Input type="email" name="email" value={user.email} onChange={handleChange} />
               </div>
               <div className="relative">
                 <Label>Password</Label>
-                <Input type={showPassword ? "text" : "password"} placeholder="Create a Password" name="password" value={user.password} onChange={handleChange} className="dark:border-gray-600 dark:bg-gray-900" />
-                <button type="button" className="absolute right-3 top-9 text-gray-500" onClick={() => setShowPassword(!showPassword)}>
+                <Input type={showPassword ? "text" : "password"} name="password" value={user.password} onChange={handleChange} />
+                <button type="button" className="absolute right-3 top-9" onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
               <Button type="submit" className="w-full">Sign Up</Button>
-              <p className='text-center text-gray-600 dark:text-gray-300'>Already have an account? <Link to={'/login'}><span className='underline cursor-pointer hover:text-gray-800 dark:hover:text-gray-100'>Sign in</span></Link></p>
+              <p className='text-center text-sm'>Already have an account? <Link to="/login" className="underline">Sign in</Link></p>
             </form>
 
             <div className="my-4 flex items-center gap-2">
-              <hr className="flex-grow border-gray-300 dark:border-gray-600" />
-              <span className="text-gray-500 dark:text-gray-300 text-sm">OR</span>
-              <hr className="flex-grow border-gray-300 dark:border-gray-600" />
+              <hr className="flex-grow border-gray-300" />
+              <span className="text-gray-500 text-sm">OR</span>
+              <hr className="flex-grow border-gray-300" />
             </div>
 
             <div className="flex justify-center">
