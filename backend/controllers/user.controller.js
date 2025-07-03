@@ -181,3 +181,68 @@ export const getAllUsers = async (req, res) => {
       });
     }
   };
+
+  /*****************************************/
+  import { OAuth2Client } from 'google-auth-library';
+
+  const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
+
+  export const googleAuth = async (req, res) => {
+  try {
+    const { credential } = req.body;
+
+    if (!credential) {
+      return res.status(400).json({
+        success: false,
+        message: "No credential provided",
+      });
+    }
+
+    const ticket = await client.verifyIdToken({
+      idToken: credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+    const { email, given_name, family_name, picture } = payload;
+
+    console.log("Google payload:", payload); // 👈 Log user info
+
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      user = await User.create({
+        firstName: given_name,
+        lastName: family_name,
+        email,
+        photoUrl: picture,
+        isGoogleAccount: true,
+        password: "", // 👈 Required for schema
+      });
+    }
+
+    const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
+      expiresIn: "1d",
+    });
+
+    return res
+      .cookie("token", token, {
+        maxAge: 1 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        sameSite: "strict",
+      })
+      .status(200)
+      .json({
+        success: true,
+        message: `Welcome ${user.firstName}`,
+        user,
+      });
+  } catch (error) {
+    console.error("Google Auth Error:", error); // 👈 Log detailed error
+    return res.status(500).json({
+      success: false,
+      message: "Google authentication failed",
+    });
+  }
+};
+
