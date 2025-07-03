@@ -193,7 +193,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post(`http://localhost:4000/api/v1/user/register`, user, {
+      const response = await axios.post(`https://blog-yt-rqdo.onrender.com/api/v1/user/register`, user, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       })
@@ -211,7 +211,7 @@ const Signup = () => {
 
   const handleGoogleSignup = async (credentialResponse) => {
     try {
-      const response = await axios.post(`http://localhost:4000/api/v1/user/google`, {
+      const response = await axios.post(`https://blog-yt-rqdo.onrender.com/api/v1/user/google`, {
         credential: credentialResponse.credential,
       }, {
         headers: { "Content-Type": "application/json" },
