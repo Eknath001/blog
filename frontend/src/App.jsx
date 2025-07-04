@@ -1,109 +1,171 @@
-import React from 'react'
-import Signup from './pages/Signup'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Home from './pages/Home'
-import Login from './pages/Login'
-import Navbar from './components/Navbar'
-import Profile from './pages/Profile'
-import Blog from './pages/Blog'
-import CreateBlog from './pages/CreateBlog'
-import Dashboard from './pages/Dashboard'
-import YourBlog from './pages/YourBlog'
-import BlogView from './pages/BlogView'
-import Footer from './components/Footer'
-import About from './pages/About'
-import Contact from './pages/Contact'
-import Comments from './pages/Comments'
-import UpdateBlog from './pages/UpdateBlog'
-import ProtectedRoute from './components/ProtectedRoute'
-import SearchList from './pages/SearchList'
+import React from "react";
+import Signup from "./pages/Signup";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Navbar from "./components/Navbar";
+import Profile from "./pages/Profile";
+import Blog from "./pages/Blog";
+import CreateBlog from "./pages/CreateBlog";
+import Dashboard from "./pages/Dashboard";
+import YourBlog from "./pages/YourBlog";
+import BlogView from "./pages/BlogView";
+import Footer from "./components/Footer";
+import About from "./pages/About";
+import Comments from "./pages/Comments";
+import UpdateBlog from "./pages/UpdateBlog";
+import ProtectedRoute from "./components/ProtectedRoute";
+import SearchList from "./pages/SearchList";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <><Navbar/><Home /><Footer/></>
+    element: (
+      <>
+        <Navbar />
+        <Home />
+        <Footer />
+      </>
+    ),
   },
   {
     path: "/blogs",
-    element: <><Navbar/><Blog /><Footer/></>
+    element: (
+      <>
+        <Navbar />
+        <Blog />
+        <Footer />
+      </>
+    ),
   },
   {
     path: "/about",
-    element: <><Navbar/><About /><Footer/></>
-  },
-    {
-    path: "/contact",
-    element: <><Navbar/><Contact /><Footer/></>
+    element: (
+      <>
+        <Navbar />
+        <About />
+        <Footer />
+      </>
+    ),
   },
   {
     path: "/search",
-    element: <><Navbar/><SearchList/><Footer/></>
+    element: (
+      <>
+        <Navbar />
+        <SearchList />
+        <Footer />
+      </>
+    ),
   },
   {
     path: "/blogs/:blogId",
-    element: <><Navbar/><ProtectedRoute><BlogView /></ProtectedRoute></>
+    element: (
+      <>
+        <Navbar />
+        <ProtectedRoute>
+          <BlogView />
+        </ProtectedRoute>
+      </>
+    ),
   },
   {
     path: "/write-blog",
-    element: <><Navbar/><CreateBlog /></>
+    element: (
+      <>
+        <Navbar />
+        <CreateBlog />
+      </>
+    ),
   },
- 
   {
     path: "/profile",
-    element: <><Navbar/><Profile /></>
+    element: (
+      <>
+        <Navbar />
+        <Profile />
+      </>
+    ),
   },
-  // {
-  //   path: "write-blog/:blogId",
-  //       element: <><Navbar/><CreateBlog /></>
-  // },
-  // {
-  //   path: "/dashboard",
-  //   element: <><Navbar/><Dashboard /></>
-  // },
   {
-    path:"/dashboard",
-    element: <><Navbar/><ProtectedRoute><Dashboard/></ProtectedRoute></>,
-    children:[
+    path: "/dashboard",
+    element: (
+      <>
+        <Navbar />
+        <ProtectedRoute>
+          <Dashboard />
+        </ProtectedRoute>
+      </>
+    ),
+    children: [
       {
         path: "write-blog",
-        element:<><CreateBlog/></>
+        element: <CreateBlog />,
       },
       {
         path: "write-blog/:blogId",
-        element: <><UpdateBlog /></>
+        element: <UpdateBlog />,
       },
       {
         path: "your-blog",
-        element:<YourBlog/>
+        element: <YourBlog />,
       },
       {
         path: "comments",
-        element:<Comments/>
+        element: <Comments />,
       },
       {
         path: "profile",
-        element:<Profile/>
+        element: <Profile />,
       },
-      
-      
-    ]
-   },
+    ],
+  },
   {
     path: "/signup",
-    element: <><Navbar/><Signup /></> 
+    element: (
+      <>
+        <Navbar />
+        <Signup />
+      </>
+    ),
   },
   {
     path: "/login",
-    element: <><Navbar/><Login /></>
+    element: (
+      <>
+        <Navbar />
+        <Login />
+      </>
+    ),
   },
-])
+  {
+    path: "/forgot-password",
+    element: (
+      <>
+        <Navbar />
+        <ForgotPassword />
+      </>
+    ),
+  },
+  {
+    path: "/reset-password/:token",
+    element: (
+      <>
+        <Navbar />
+        <ResetPassword />
+      </>
+    ),
+  },
+]);
 
 const App = () => {
   return (
     <>
       <RouterProvider router={router} />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

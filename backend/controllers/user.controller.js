@@ -246,3 +246,53 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
+/********************************************************/
+
+import crypto from "crypto";
+import sendMail from "../utils/sendMail.js";
+
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) return res.status(404).json({ message: "User not found" });
+
+  const token = crypto.randomBytes(32).toString("hex");
+  user.resetToken = crypto.createHash("sha256").update(token).digest("hex");
+  user.resetTokenExpire = Date.now() + 3600000; // 1 hour
+  await user.save();
+
+  const resetLink = `https://blog-yt-rqdo.onrender.com/reset-password/${token}`;
+  await sendMail(
+    user.email,
+    "Password Reset",
+    `Click the link to reset your password:\n${resetLink}\n\nThis link will expire in 1 hour.`
+  );
+
+  res.json({ message: "Reset link sent to your email." });
+};
+
+
+
+export const resetPassword = async (req, res) => {
+  const hashedToken = crypto.createHash("sha256").update(req.params.token).digest("hex");
+  const user = await User.findOne({
+    resetToken: hashedToken,
+    resetTokenExpire: { $gt: Date.now() },
+  });
+
+  if (!user) return res.status(400).json({ message: "Token is invalid or has expired" });
+
+  user.password = req.body.password;
+  user.resetToken = undefined;
+  user.resetTokenExpire = undefined;
+  await user.save();
+
+  await sendMail(
+    user.email,
+    "Password Changed",
+    `Your password was successfully updated. If this wasn't you, contact support immediately.`
+  );
+
+  res.json({ message: "Password reset successful. Please log in." });
+};
+

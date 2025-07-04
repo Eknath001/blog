@@ -129,117 +129,296 @@
 //export default Login
 
 
-import { useState } from "react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Eye, EyeOff } from "lucide-react"
-import { Link, useNavigate } from "react-router-dom"
-import axios from "axios"
-import { toast } from "sonner"
-import { useDispatch } from "react-redux"
-import { setUser } from "@/redux/authSlice"
-import auth from "../assets/auth.jpg"
-import { GoogleLogin } from "@react-oauth/google"
+//import { useState } from "react"
+//import { Input } from "@/components/ui/input"
+//import { Button } from "@/components/ui/button"
+//import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+//import { Label } from "@/components/ui/label"
+//import { Eye, EyeOff } from "lucide-react"
+//import { Link, useNavigate } from "react-router-dom"
+//import axios from "axios"
+//import { toast } from "sonner"
+//import { useDispatch } from "react-redux"
+//import { setUser } from "@/redux/authSlice"
+//import auth from "../assets/auth.jpg"
+//import { GoogleLogin } from "@react-oauth/google"
+//
+//const Login = () => {
+//  const navigate = useNavigate()
+//  const dispatch = useDispatch()
+//
+//  const [input, setInput] = useState({ email: "", password: "" })
+//  const [showPassword, setShowPassword] = useState(false)
+//
+//  const handleChange = (e) => {
+//    const { name, value } = e.target
+//    setInput((prev) => ({ ...prev, [name]: value }))
+//  }
+//
+//  const handleSubmit = async (e) => {
+//    e.preventDefault()
+//    try {
+//      const response = await axios.post(`https://blog-yt-rqdo.onrender.com/api/v1/user/login`, input, {
+//        headers: { "Content-Type": "application/json" },
+//        withCredentials: true
+//      })
+//      if (response.data.success) {
+//        dispatch(setUser(response.data.user))
+//        toast.success(response.data.message)
+//        navigate('/')
+//      }
+//    } catch (error) {
+//      console.log(error)
+//      toast.error(error?.response?.data?.message || "Login failed")
+//    }
+//  }
+//
+//  const handleGoogleLogin = async (credentialResponse) => {
+//    try {
+//      const response = await axios.post(`https://blog-yt-rqdo.onrender.com/api/v1/user/google`, {
+//        credential: credentialResponse.credential,
+//      }, {
+//        headers: { "Content-Type": "application/json" },
+//        withCredentials: true,
+//      })
+//
+//      if (response.data.success) {
+//        dispatch(setUser(response.data.user))
+//        toast.success("Google login successful")
+//        navigate("/")
+//      } else {
+//        toast.error(response.data.message)
+//      }
+//    } catch (error) {
+//      console.log(error)
+//      toast.error(error?.response?.data?.message || "Google login failed")
+//    }
+//  }
+//
+//  return (
+//    <div className="flex items-center h-screen md:pt-14 md:h-[760px]">
+//      <div className="hidden md:block">
+//        <img src={auth} alt="" className='h-[700px]' />
+//      </div>
+//      <div className='flex justify-center items-center flex-1 px-4 md:px-0'>
+//        <Card className="w-full max-w-md p-6 shadow-lg rounded-2xl dark:bg-gray-800 dark:border-gray-600">
+//          <CardHeader>
+//            <CardTitle className="text-center text-xl font-semibold">Login into your account</CardTitle>
+//            <p className='text-gray-600 dark:text-gray-300 mt-2 text-sm font-serif text-center'>Enter your details below to login your account</p>
+//          </CardHeader>
+//          <CardContent>
+//            <form className="space-y-4" onSubmit={handleSubmit}>
+//              <div>
+//                <Label>Email</Label>
+//                <Input type="email" placeholder="Email Address" name="email" value={input.email} onChange={handleChange} className="dark:border-gray-600 dark:bg-gray-900" />
+//              </div>
+//              <div className="relative">
+//                <Label>Password</Label>
+//                <Input type={showPassword ? "text" : "password"} placeholder="Enter Your Password" name="password" value={input.password} onChange={handleChange} className="dark:border-gray-600 dark:bg-gray-900" />
+//                <button type="button" className="absolute right-3 top-9 text-gray-500" onClick={() => setShowPassword(!showPassword)}>
+//                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+//                </button>
+//              </div>
+//              <Button type="submit" className="w-full">Login</Button>
+//              <p className='text-center text-gray-600 dark:text-gray-300'>Don't have an account? <Link to={'/signup'}><span className='underline cursor-pointer hover:text-gray-800'>Sign up</span></Link></p>
+//            </form>
+//
+//            <div className="my-4 flex items-center gap-2">
+//              <hr className="flex-grow border-gray-300 dark:border-gray-600" />
+//              <span className="text-gray-500 dark:text-gray-300 text-sm">OR</span>
+//              <hr className="flex-grow border-gray-300 dark:border-gray-600" />
+//            </div>
+//
+//            <div className="flex justify-center">
+//              <GoogleLogin
+//                onSuccess={handleGoogleLogin}
+//                onError={() => toast.error("Google login failed")}
+//              />
+//            </div>
+//          </CardContent>
+//        </Card>
+//      </div>
+//    </div>
+//  )
+//}
+//
+//export default Login
+//
+
+
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Eye, EyeOff } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/redux/authSlice";
+import { GoogleLogin } from "@react-oauth/google";
+import auth from "../assets/auth.jpg";
+import bgImage from "../assets/signup.avif";
+import { motion } from "framer-motion";
 
 const Login = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [input, setInput] = useState({ email: "", password: "" })
-  const [showPassword, setShowPassword] = useState(false)
+  const [input, setInput] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setInput((prev) => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setInput((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const response = await axios.post(`https://blog-yt-rqdo.onrender.com/api/v1/user/login`, input, {
         headers: { "Content-Type": "application/json" },
-        withCredentials: true
-      })
+        withCredentials: true,
+      });
       if (response.data.success) {
-        dispatch(setUser(response.data.user))
-        toast.success(response.data.message)
-        navigate('/')
+        dispatch(setUser(response.data.user));
+        toast.success(response.data.message);
+        navigate("/");
       }
     } catch (error) {
-      console.log(error)
-      toast.error(error?.response?.data?.message || "Login failed")
+      toast.error(error?.response?.data?.message || "Login failed");
     }
-  }
+  };
 
   const handleGoogleLogin = async (credentialResponse) => {
     try {
-      const response = await axios.post(`https://blog-yt-rqdo.onrender.com/api/v1/user/google`, {
-        credential: credentialResponse.credential,
-      }, {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      })
+      const response = await axios.post(
+        `https://blog-yt-rqdo.onrender.com/api/v1/user/google`,
+        { credential: credentialResponse.credential },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
 
       if (response.data.success) {
-        dispatch(setUser(response.data.user))
-        toast.success("Google login successful")
-        navigate("/")
+        dispatch(setUser(response.data.user));
+        toast.success("Google login successful");
+        navigate("/");
       } else {
-        toast.error(response.data.message)
+        toast.error(response.data.message);
       }
     } catch (error) {
-      console.log(error)
-      toast.error(error?.response?.data?.message || "Google login failed")
+      toast.error(error?.response?.data?.message || "Google login failed");
     }
-  }
+  };
 
   return (
-    <div className="flex items-center h-screen md:pt-14 md:h-[760px]">
-      <div className="hidden md:block">
-        <img src={auth} alt="" className='h-[700px]' />
-      </div>
-      <div className='flex justify-center items-center flex-1 px-4 md:px-0'>
-        <Card className="w-full max-w-md p-6 shadow-lg rounded-2xl dark:bg-gray-800 dark:border-gray-600">
-          <CardHeader>
-            <CardTitle className="text-center text-xl font-semibold">Login into your account</CardTitle>
-            <p className='text-gray-600 dark:text-gray-300 mt-2 text-sm font-serif text-center'>Enter your details below to login your account</p>
-          </CardHeader>
-          <CardContent>
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <div>
-                <Label>Email</Label>
-                <Input type="email" placeholder="Email Address" name="email" value={input.email} onChange={handleChange} className="dark:border-gray-600 dark:bg-gray-900" />
-              </div>
-              <div className="relative">
-                <Label>Password</Label>
-                <Input type={showPassword ? "text" : "password"} placeholder="Enter Your Password" name="password" value={input.password} onChange={handleChange} className="dark:border-gray-600 dark:bg-gray-900" />
-                <button type="button" className="absolute right-3 top-9 text-gray-500" onClick={() => setShowPassword(!showPassword)}>
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
-              <Button type="submit" className="w-full">Login</Button>
-              <p className='text-center text-gray-600 dark:text-gray-300'>Don't have an account? <Link to={'/signup'}><span className='underline cursor-pointer hover:text-gray-800'>Sign up</span></Link></p>
-            </form>
+    <div
+      className="relative min-h-screen flex items-center justify-center bg-cover bg-center"
+      style={{ backgroundImage: `url(${bgImage})` }}
+    >
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-md z-0" />
 
-            <div className="my-4 flex items-center gap-2">
-              <hr className="flex-grow border-gray-300 dark:border-gray-600" />
-              <span className="text-gray-500 dark:text-gray-300 text-sm">OR</span>
-              <hr className="flex-grow border-gray-300 dark:border-gray-600" />
-            </div>
+      <div className="relative z-10 flex flex-col md:flex-row w-full max-w-6xl rounded-2xl overflow-hidden shadow-2xl">
+        {/* Left image */}
+        <div className="w-full md:w-1/2">
+          <img src={auth} alt="Login Visual" className="w-full h-full object-cover" />
+        </div>
 
-            <div className="flex justify-center">
-              <GoogleLogin
-                onSuccess={handleGoogleLogin}
-                onError={() => toast.error("Google login failed")}
-              />
-            </div>
-          </CardContent>
-        </Card>
+        {/* Right login form */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="w-full md:w-1/2 bg-white/90 dark:bg-gray-800/80 backdrop-blur-lg flex items-center justify-center p-6"
+        >
+          <Card className="w-full max-w-md shadow-none bg-transparent border-none">
+            <CardHeader>
+              <CardTitle className="text-center text-xl font-semibold text-gray-800 dark:text-white">
+                Login into your account
+              </CardTitle>
+              <p className="text-center text-sm text-gray-600 dark:text-gray-300 mt-2 font-serif">
+                Enter your credentials below
+              </p>
+            </CardHeader>
+            <CardContent>
+              <form className="space-y-4" onSubmit={handleSubmit}>
+                <div>
+                  <Label>Email</Label>
+                  <Input
+                    type="email"
+                    name="email"
+                    value={input.email}
+                    onChange={handleChange}
+                    placeholder="Email address"
+                    className="dark:border-gray-600 dark:bg-gray-900"
+                  />
+                </div>
+
+                <div className="relative">
+                  <Label>Password</Label>
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={input.password}
+                    onChange={handleChange}
+                    placeholder="Your password"
+                    className="dark:border-gray-600 dark:bg-gray-900"
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-3 top-9 text-gray-500"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
+
+                {/* Remember Me + Forgot Password */}
+                <div className="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400">
+                  <label className="flex items-center space-x-2">
+                    <input type="checkbox" className="accent-blue-500" />
+                    <span>Remember me</span>
+                  </label>
+                  <Link to="/forgot-password" className="hover:underline">
+                    Forgot password?
+                  </Link>
+                </div>
+
+                <Button type="submit" className="w-full hover:scale-[1.02] transition-transform">
+                  Login
+                </Button>
+
+                <p className="text-center text-sm text-gray-600 dark:text-gray-300">
+                  Don’t have an account?{" "}
+                  <Link to="/signup" className="underline hover:text-blue-600">
+                    Sign up
+                  </Link>
+                </p>
+              </form>
+
+              {/* Divider */}
+              <div className="my-4 flex items-center gap-2 text-gray-500 dark:text-gray-300">
+                <hr className="flex-grow border-gray-300 dark:border-gray-600" />
+                <span className="text-sm">OR</span>
+                <hr className="flex-grow border-gray-300 dark:border-gray-600" />
+              </div>
+
+              {/* Google Login */}
+              <div className="flex justify-center">
+                <GoogleLogin
+                  onSuccess={handleGoogleLogin}
+                  onError={() => toast.error("Google login failed")}
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
