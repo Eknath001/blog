@@ -1,6 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-import animate from "tailwindcss-animate";
-
 export default {
   darkMode: ["class"],
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -46,38 +44,51 @@ export default {
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         chart: {
-          "1": "hsl(var(--chart-1))",
-          "2": "hsl(var(--chart-2))",
-          "3": "hsl(var(--chart-3))",
-          "4": "hsl(var(--chart-4))",
-          "5": "hsl(var(--chart-5))",
+          1: "hsl(var(--chart-1))",
+          2: "hsl(var(--chart-2))",
+          3: "hsl(var(--chart-3))",
+          4: "hsl(var(--chart-4))",
+          5: "hsl(var(--chart-5))",
         },
       },
       keyframes: {
-        fadeInUp: {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
+        grow: {
+          "0%": { width: "0" },
+          "100%": { width: "5rem" },
         },
-        scaleIn: {
-          "0%": { transform: "scale(0.8)", opacity: "0" },
-          "100%": { transform: "scale(1)", opacity: "1" },
+        "fade-in-left": {
+          "0%": { opacity: 0, transform: "translateX(-20px)" },
+          "100%": { opacity: 1, transform: "translateX(0)" },
         },
-        fadeInSlideUp: {
-          "0%": { opacity: "0", transform: "translateY(10px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
+        "fade-in-right": {
+          "0%": { opacity: 0, transform: "translateX(20px)" },
+          "100%": { opacity: 1, transform: "translateX(0)" },
         },
-        fadeIn: {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
+        typewriter: {
+          "0%": { width: "0" },
+          "100%": { width: "100%" },
+        },
+        "blink-caret": {
+          "0%, 100%": { borderColor: "transparent" },
+          "50%": { borderColor: "orange" },
+        },
+        "color-cycle": {
+          "0%": { color: "#3B82F6" }, // blue-500
+          "25%": { color: "#10B981" }, // green-500
+          "50%": { color: "#EC4899" }, // pink-500
+          "75%": { color: "#F59E0B" }, // yellow-500
+          "100%": { color: "#3B82F6" }, // back to blue
         },
       },
       animation: {
-        "fade-in-up": "fadeInUp 0.6s ease-out forwards",
-        "scale-in": "scaleIn 0.5s ease-out forwards",
-        "fade-in-slide-up": "fadeInSlideUp 0.5s ease-out forwards",
-        "fade-in": "fadeIn 0.5s ease-out forwards",
+        grow: "grow 1s ease-out forwards",
+        "fade-in-left": "fade-in-left 1s ease-out forwards",
+        "fade-in-right": "fade-in-right 1s ease-out forwards",
+        typewriter: "typewriter 4s steps(44) forwards",
+        "blink-caret": "blink-caret 0.75s step-end infinite",
+        "color-cycle": "color-cycle 5s ease-in-out infinite",
       },
     },
   },
-  plugins: [animate],
+  plugins: [require("tailwindcss-animate")],
 };
